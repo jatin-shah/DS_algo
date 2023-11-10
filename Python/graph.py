@@ -7,12 +7,15 @@ class graph():
         if end < self.V and end not in self.adj[start]:
             self.adj[start].append(end)
 
-    def print_neighbors(self, start = -1):
-        for index, nborlst in enumerate(self.adj):
-            if start < 0 or index == start:
-                print(chr(index + ord('A')), ":[", end="")
-                for nbor in nborlst:
-                    print(chr(nbor + ord('A')), ",", end="")
+    def print_adj(self, start = -1):
+        for i, nborlst in enumerate(self.adj):
+            if start < 0 or i == start:
+                print(chr(i + ord('A')), ":[", end="")
+                for j, nbor in enumerate(nborlst):
+                    if j == len(nborlst) - 1:
+                        print(chr(nbor + ord('A')), "", end="")
+                    else:
+                        print(chr(nbor + ord('A')), ",", end="")
                 print("]")
 
 G = graph(5)
@@ -22,5 +25,5 @@ G.add_edge(1,2)
 G.add_edge(3,2)
 G.add_edge(3,4)
 
-G.print_neighbors()
+G.print_adj()
 

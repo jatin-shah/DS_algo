@@ -9,29 +9,29 @@ class graph {
 public:
     graph(int vertices) {
         V = vertices;
-        adj = vector<vector<int>>(V);
+        adj = vector<vector<int>>(vertices);
     }
 
-    void add_edge(int from, int to) {
-        if (to >= adj.size())
+    void add_edge(int start, int end) {
+        if (start >= V || end >= V)
             return;
         bool found = false;
-        for (int i = 0; i < adj[from].size(); i++) {
-            if (adj[from][i] == to) {
+        for (int i = 0; i < adj[start].size(); i++) {
+            if (adj[start][i] == end) {
                 found = true;
                 break;
             }
         }
         if (!found)
-            adj[from].push_back(to);
+            adj[start].push_back(end);
     }
 
-    void print_neighbors(int vertex = -1) {
+    void print_adj(int start = -1) {
         for (int i = 0; i < V; i++) {
-            if (vertex < 0 || i == vertex) {
+            if (start < 0 || start == i) {
                 cout << (char)(i + 'A') << ":[";
                 for (int j = 0; j < adj[i].size(); j++)
-                    cout << (char)(adj[i][j] + 'A') << ((j == (adj[i].size() - 1)) ? "" : ",");
+                    cout << (char)(adj[i][j] + 'A') << (j == (adj[i].size() - 1)? "" : ",");
                 cout << "]\n";
             }
         }
@@ -53,6 +53,8 @@ int main() {
     G->add_edge(3, 2);
     G->add_edge(3, 4);
 
-    G->print_neighbors();
+    G->print_adj(0);
+    G->print_adj(3);
+
     return 0;
 }

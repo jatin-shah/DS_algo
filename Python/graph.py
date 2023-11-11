@@ -18,6 +18,42 @@ class graph():
                         print(chr(nbor + ord('A')), ",", end="")
                 print("]")
 
+    def print_BFS_traversal(self, start):
+        cur = start
+        Q = []  
+        visited = [False] * self.V
+
+        if start > self.V:
+            return
+        
+        Q.append(cur)
+        visited[cur] = True
+
+        while len(Q) > 0:
+            cur = Q.pop(0)
+            print(chr(cur + ord('A')), " ", end="")
+            for nbor in self.adj[cur]:
+                if not visited[nbor]:
+                    Q.append(nbor)
+                    visited[nbor] = True
+
+    # def print_DFS_traversal(self, start):
+
+'''
+    A: [B, D]
+    B: [C]
+    C: []
+    D: [C, E]
+    E: []
+
+        A
+       / \
+      B   D
+      | / |
+      C   E
+
+BFS Traversal: A B D C E
+'''
 G = graph(5)
 G.add_edge(0,1)
 G.add_edge(0,3)
@@ -26,4 +62,6 @@ G.add_edge(3,2)
 G.add_edge(3,4)
 
 G.print_adj()
+
+G.print_BFS_traversal(0)
 
